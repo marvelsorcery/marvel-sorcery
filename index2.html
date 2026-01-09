@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marvel Magic Characters</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #e6d9ff;
+    line-height: 1.6;
+    transition: background 0.8s ease;
+}
+
+/* Background themes */
+body.agatha { background: radial-gradient(circle at top, #2b0f3f, #0b0512); }
+body.wanda { background: radial-gradient(circle at top, #5a0f14, #120406); }
+body.wiccan { background: radial-gradient(circle at top, #5fa9ff, #0b1e3a); }
+body.tommy { background: linear-gradient(135deg, #0f8b5f, #0b1e3a); }
+body.vision { background: linear-gradient(135deg, #b20000, #ffd700); }
+
+header { text-align: center; padding: 80px 20px; position: relative; }
+.controls { position: absolute; top: 20px; right: 20px; }
+.character-btn { background: rgba(0,0,0,0.4); color: #ffffff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 12px; cursor: pointer; }
+
+nav { position: sticky; top: 0; background: rgba(0,0,0,0.6); padding: 10px; text-align: center; }
+nav a { color: #e6d9ff; margin: 0 12px; text-decoration: none; font-weight: bold; }
+
+section { max-width: 900px; margin: auto; padding: 60px 20px; }
+section h2 { border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+.card { background: rgba(255,255,255,0.08); padding: 25px; border-radius: 10px; margin-top: 20px; }
+
+footer { text-align: center; padding: 30px; background: rgba(0,0,0,0.5); }
+</style>
+</head>
+
+<body class="agatha">
+
+<header>
+<div class="controls">
+<button class="character-btn" onclick="switchCharacter()">Switch Character</button>
+</div>
+
+<h1 data-key="title"></h1>
+<p data-key="subtitle"></p>
+</header>
+
+<nav>
+<a href="#bio" data-key="bioTitle"></a>
+<a href="#factfile" data-key="factTitle"></a>
+<a href="#powers" data-key="powersTitle"></a>
+<a href="#inspiration" data-key="inspTitle"></a>
+<a href="#quotes" data-key="quotesTitle"></a>
+</nav>
+
+<section id="bio">
+<h2 data-key="bioTitle"></h2>
+<div class="card"><p data-key="bioText"></p></div>
+</section>
+
+<section id="factfile">
+<h2 data-key="factTitle"></h2>
+<div class="card">
+<ul>
+<li data-key="f1"></li>
+<li data-key="f2"></li>
+<li data-key="f3"></li>
+<li data-key="f4"></li>
+<li data-key="f5"></li>
+</ul>
+</div>
+</section>
+
+<section id="powers">
+<h2 data-key="powersTitle"></h2>
+<div class="card">
+<ul>
+<li data-key="p1"></li>
+<li data-key="p2"></li>
+<li data-key="p3"></li>
+<li data-key="p4"></li>
+</ul>
+</div>
+</section>
+
+<section id="inspiration">
+<h2 data-key="inspTitle"></h2>
+<div class="card"><p data-key="inspText"></p></div>
+</section>
+
+<section id="quotes">
+<h2 data-key="quotesTitle"></h2>
+<div class="card">
+<p data-key="q1"></p>
+<p data-key="q2"></p>
+</div>
+</section>
+
+<footer>
+<p>Fan-made website for educational and creative purposes.</p>
+</footer>
+
+<script>
+const characters = [
+{
+theme:"agatha",
+title:"Agatha Harkness",
+subtitle:"Ancient witch, master of dark magic.",
+bioTitle:"Biography",
+factTitle:"Fact File",
+powersTitle:"Powers & Abilities",
+inspTitle:"Inspiration",
+quotesTitle:"Iconic Quotes",
+bioText:"Agatha Harkness is a centuries-old witch who pursued forbidden magic and survived the Salem witch trials.",
+f1:"Full Name: Agatha Harkness",
+f2:"Species: Witch",
+f3:"First Appearance: WandaVision (2021)",
+f4:"Portrayed By: Kathryn Hahn",
+f5:"Magic Type: Dark Magic",
+p1:"Dark magic manipulation",
+p2:"Absorbing magical energy",
+p3:"Spell casting",
+p4:"Longevity",
+inspText:"Agatha inspires intelligence, confidence, and independence.",
+q1:"“I did it all for you, Wanda.”",
+q2:"“You have no idea how dangerous you are.”"
+},
+{
+theme:"wanda",
+title:"Wanda Maximoff",
+subtitle:"The Scarlet Witch, wielder of chaos magic.",
+bioTitle:"Biography",
+factTitle:"Fact File",
+powersTitle:"Powers & Abilities",
+inspTitle:"Inspiration",
+quotesTitle:"Iconic Quotes",
+bioText:"Wanda Maximoff is a reality-altering sorceress shaped by grief and love.",
+f1:"Full Name: Wanda Maximoff",
+f2:"Alias: Scarlet Witch",
+f3:"First Appearance: Age of Ultron (2015)",
+f4:"Portrayed By: Elizabeth Olsen",
+f5:"Magic Type: Chaos Magic",
+p1:"Reality warping",
+p2:"Chaos magic",
+p3:"Telekinesis",
+p4:"Energy projection",
+inspText:"Wanda inspires resilience and emotional strength.",
+q1:"“You took everything from me.”",
+q2:"“I can’t control their fear, only my own.”"
+},
+{
+theme:"wiccan",
+title:"Wiccan (Billy Maximoff)",
+subtitle:"Young sorcerer with immense potential.",
+bioTitle:"Biography",
+factTitle:"Fact File",
+powersTitle:"Powers & Abilities",
+inspTitle:"Inspiration",
+quotesTitle:"Iconic Quotes",
+bioText:"Wiccan is a powerful young magician and member of the Young Avengers.",
+f1:"Full Name: William Kaplan",
+f2:"Alias: Wiccan",
+f3:"Affiliation: Young Avengers",
+f4:"Parentage: Son of Wanda Maximoff",
+f5:"Magic Type: Spell-based magic",
+p1:"Advanced spell casting",
+p2:"Reality manipulation",
+p3:"Energy projection",
+p4:"Magical constructs",
+inspText:"Wiccan inspires hope and self-acceptance.",
+q1:"“Magic is about belief.”",
+q2:"“I know who I am.”"
+},
+{
+theme:"tommy",
+title:"Tommy Maximoff (Speed)",
+subtitle:"Super-speedster with a rebellious spirit.",
+bioTitle:"Biography",
+factTitle:"Fact File",
+powersTitle:"Powers & Abilities",
+inspTitle:"Inspiration",
+quotesTitle:"Iconic Quotes",
+bioText:"Tommy Maximoff is the twin brother of Billy and possesses incredible superhuman speed.",
+f1:"Full Name: Thomas Shepherd",
+f2:"Alias: Speed",
+f3:"Affiliation: Young Avengers",
+f4:"Parentage: Son of Wanda Maximoff",
+f5:"Power Type: Superhuman speed",
+p1:"Extreme super speed",
+p2:"Enhanced reflexes",
+p3:"Accelerated perception",
+p4:"Rapid healing",
+inspText:"Tommy inspires confidence, individuality, and fearless energy.",
+q1:"“Try to keep up.”",
+q2:"“Fast is who I am.”"
+},
+{
+theme:"vision",
+title:"Vision",
+subtitle:"Android Avenger with synthetic and vibranium abilities.",
+bioTitle:"Biography",
+factTitle:"Fact File",
+powersTitle:"Powers & Abilities",
+inspTitle:"Inspiration",
+quotesTitle:"Iconic Quotes",
+bioText:"Vision is an android created by Ultron, empowered by the Mind Stone. He serves as a hero of reason and compassion.",
+f1:"Full Name: Vision",
+f2:"Alias: None",
+f3:"First Appearance: Avengers: Age of Ultron (2015)",
+f4:"Portrayed By: Paul Bettany",
+f5:"Power Source: Mind Stone",
+p1:"Superhuman strength and durability",
+p2:"Flight",
+p3:"Density manipulation",
+p4:"Energy projection from Mind Stone",
+inspText:"Vision inspires logic, morality, and empathy, showing the balance of intellect and heart.",
+q1:"“I am not a machine, I am alive.”",
+q2:"“I think you are beautiful.”"
+}
+];
+
+let index = 0;
+
+function renderCharacter() {
+  const c = characters[index];
+  document.body.className = c.theme;
+  document.querySelectorAll("[data-key]").forEach(el => {
+    el.textContent = c[el.dataset.key] || "";
+  });
+}
+
+function switchCharacter() {
+  index = (index + 1) % characters.length;
+  renderCharacter();
+}
+
+renderCharacter();
+</script>
+
+</body>
+</html>
+
